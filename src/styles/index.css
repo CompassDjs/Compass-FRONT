@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  background-color: var(--secondary);
+  color: var(--white);
+  font-family: "Inter";
+}
+
+html,
+#root {
+  height: 100vh;
+}
+
+:root {
+  --primary: #2f3136;
+  --selected: #42464d;
+  --secondary: #36393f;
+  --tertiary: #40444b;
+  --dark: #202225;
+  --black: #141414;
+  --white: #e3e3e3;
+  --gray: #96989d;
+  --light-gray: #b9bbbe;
+  --mention: #404675;
+  --mention-hover: #5865f2;
+  --green: #2d7d46;
+}
