@@ -24,3 +24,9 @@ html,
   --mention-hover: #5865f2;
   --green: #2d7d46;
 }
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
