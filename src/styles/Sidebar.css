@@ -17,7 +17,6 @@
 .sidebar-closed {
   /* width: var(--asideWidth); */
   width: 6%;
-  bottom: 0px;
   /* left: var(--containBoxHPadding); */
   left: calc(50% - 50vw + 0.4%);
   position: fixed;

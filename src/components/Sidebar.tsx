@@ -212,6 +212,7 @@ export const Sidebar = ({
                 <div className="sidebar-footer-button-dropdown-content">
                   {navFooter.map((item) => (
                     <div
+                      key={item.name}
                       onClick={() => {
                         navigate("/" + item.name, { replace: true });
                       }}
