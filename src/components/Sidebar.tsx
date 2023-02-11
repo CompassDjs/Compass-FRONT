@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
-import { RiServerFill } from "react-icons/ri";
+import { RiServerFill, RiErrorWarningFill } from "react-icons/ri";
 import { FaHashtag, FaUserAlt, FaUserAltSlash } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
 import { Pacman } from "src/assets/pacman/pacman";
@@ -13,7 +13,7 @@ import "../styles/Sidebar.css";
 
 export const Sidebar = ({
   userId = "",
-  guildId = "",
+  setUserId = (userId: string) => {},
   sidebarState = true,
   changeSidebarState = () => {},
 }) => {
@@ -27,35 +27,33 @@ export const Sidebar = ({
       name: "Dashboard",
       path: "/",
       icon: RxDashboard,
-      current: true,
     },
     {
       name: "Server",
       path: "/server",
       icon: RiServerFill,
-      current: false,
     },
     {
       name: "Channels",
       path: "/channels",
       icon: FaHashtag,
-      current: false,
     },
     {
       name: "Members",
       path: "/members",
       icon: HiUsers,
-      current: false,
     },
   ];
   const navFooter = [
     {
-      name: "Account",
-      icon: FaUserAlt,
-    },
-    {
       name: "Logout",
       icon: FaUserAltSlash,
+      connected: true,
+    },
+    {
+      name: "Login",
+      icon: FaUserAlt,
+      connected: false,
     },
   ];
 
@@ -63,33 +61,31 @@ export const Sidebar = ({
     <article className={`${sidebarState ? "sidebar-open" : "sidebar-closed"}`}>
       <header className="sidebar-header">
         <div className="sidebar-logo-container">
-          <a href="#">
-            <div
-              className="pacman"
-              style={
-                !sidebarState && pacman && pacmanEasterEgg === 5
-                  ? { display: "block" }
-                  : { display: "none" }
-              }
-            >
-              <Pacman />
-            </div>
-            <img
-              style={
-                !sidebarState && pacman && pacmanEasterEgg === 5
-                  ? { display: "none" }
-                  : { display: "block" }
-              }
-              className="sidebar-logo"
-              src="https://i.imgur.com/gaBPSWO.png"
-              alt="Compass logo"
-              onClick={() => {
-                setPacmanEasterEgg(pacmanEasterEgg + 1);
-                if (pacmanEasterEgg === 4)
-                  setTimeout(() => setPacmanEasterEgg(0), 3000);
-              }}
-            />
-          </a>
+          <div
+            className="pacman"
+            style={
+              !sidebarState && pacman && pacmanEasterEgg === 5
+                ? { display: "block" }
+                : { display: "none" }
+            }
+          >
+            <Pacman />
+          </div>
+          <img
+            style={
+              !sidebarState && pacman && pacmanEasterEgg === 5
+                ? { display: "none" }
+                : { display: "block" }
+            }
+            className="sidebar-logo"
+            src="https://i.imgur.com/gaBPSWO.png"
+            alt="Compass logo"
+            onClick={() => {
+              setPacmanEasterEgg(pacmanEasterEgg + 1);
+              if (pacmanEasterEgg === 4)
+                setTimeout(() => setPacmanEasterEgg(0), 3000);
+            }}
+          />
           <h1 style={sidebarState ? { display: "block" } : { display: "none" }}>
             Compass
           </h1>
@@ -123,14 +119,20 @@ export const Sidebar = ({
       <nav className="sidebar-nav">
         <div className="sidebar-nav-items">
           {navBar.map((item) => (
-            <div className="sidebar-nav-item" key={item.name}>
+            <div key={item.name} className="sidebar-nav-item">
               <div
                 onClick={() => {
-                  navigate(item.path);
+                  if (userId) navigate(item.path.toLowerCase());
                 }}
-                className={`${
-                  userId ? "sidebar-nav-link" : "sidebar-nav-link-off"
-                }`}
+                className={
+                  userId
+                    ? `${
+                        item.path === window.location.pathname
+                          ? "sidebar-nav-link sidebar-nav-link-selected"
+                          : "sidebar-nav-link"
+                      }`
+                    : "sidebar-nav-link-off"
+                }
               >
                 <span className="sidebar-nav-icon">
                   <item.icon />
@@ -182,14 +184,14 @@ export const Sidebar = ({
               >
                 <div className="sidebar-footer-button-box-content">
                   <div className="sidebar-footer-button-box-content-icon">
-                    <FaUserAlt />
+                    {userId ? <FaUserAlt /> : <RiErrorWarningFill />}
                   </div>
                   <div className="sidebar-footer-button-box-content-text">
                     <div className="sidebar-footer-button-box-content-text-main">
-                      <strong>{userId ? "Pexilo" : "Login"}</strong>
+                      <strong>{userId ? "Pexilo" : ""}</strong>
                     </div>
                     <p className="sidebar-footer-button-box-content-text-sub">
-                      {userId ? "Role" : ""}
+                      {userId ? "Role" : "Login with discord"}
                     </p>
                   </div>
                 </div>
@@ -210,22 +212,31 @@ export const Sidebar = ({
                 }
               >
                 <div className="sidebar-footer-button-dropdown-content">
-                  {navFooter.map((item) => (
-                    <div
-                      key={item.name}
-                      onClick={() => {
-                        navigate("/" + item.name, { replace: true });
-                      }}
-                      className="sidebar-footer-button-dropdown-content-item"
-                    >
-                      <div className="sidebar-footer-button-dropdown-content-item-text">
-                        <span>{item.name}</span>
+                  {navFooter.map((item) =>
+                    (userId && !item.connected) ||
+                    (!userId && item.connected) ? (
+                      ""
+                    ) : (
+                      <div
+                        key={item.name}
+                        onClick={() => {
+                          navigate("/" + item.name.toLowerCase(), {
+                            replace: true,
+                          });
+                          item.name.toLowerCase().includes("logout") &&
+                            setUserId("");
+                        }}
+                        className="sidebar-footer-button-dropdown-content-item"
+                      >
+                        <div className="sidebar-footer-button-dropdown-content-item-text">
+                          <span>{item.name}</span>
+                        </div>
+                        <div className="sidebar-footer-button-dropdown-content-item-icon">
+                          <item.icon />
+                        </div>
                       </div>
-                      <div className="sidebar-footer-button-dropdown-content-item-icon">
-                        <item.icon />
-                      </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </div>
             </div>

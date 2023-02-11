@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 
 function Index() {
   const [guildId, setGuildId] = useState("");
-  const [userId, setUserId] = useState("123");
+  const [userId, setUserId] = useState("1");
   const [sidebarState, changeSidebarState] = useState(true);
 
   const handleUserIdChange = (newUserId: string) => {
@@ -32,14 +32,13 @@ function Index() {
         <div className="app-container">
           <Sidebar
             userId={userId}
+            setUserId={handleUserIdChange}
             sidebarState={sidebarState}
             changeSidebarState={handleSidebarOpen}
           />
           <div
             style={
-              sidebarState
-                ? { marginLeft: window.innerWidth * 0.17 }
-                : { marginLeft: window.innerWidth * 0.07 }
+              sidebarState ? { marginLeft: "290px" } : { marginLeft: "100px" }
             }
           >
             <App
