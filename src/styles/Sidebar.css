@@ -228,6 +228,10 @@
   width: 100%;
 }
 
+.sidebar-footer-promo-button:hover {
+  background-color: var(--green-hover);
+}
+
 .sidebar-footer-button {
   position: relative;
   width: 100%;

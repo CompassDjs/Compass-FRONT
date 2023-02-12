@@ -10,6 +10,23 @@ html,
   height: 100vh;
 }
 
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: var(--secondary);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--primary);
+}
+
 :root {
   --primary: #2f3136;
   --selected: #42464d;
@@ -23,10 +40,49 @@ html,
   --mention: #404675;
   --mention-hover: #5865f2;
   --green: #2d7d46;
+  --green-hover: #3a9055;
 }
 
 .app-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 100%;
+}
+
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.app-topright {
+  position: absolute;
+  top: 1%;
+  right: 0;
+  margin: 1%;
+}
+
+.app-popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1%;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.fade-in {
+  opacity: 0;
+}
+
+.fade-in.loaded {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
 }

@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RxDashboard } from "react-icons/rx";
-import { RiServerFill, RiErrorWarningFill } from "react-icons/ri";
-import { FaHashtag, FaUserAlt, FaUserAltSlash } from "react-icons/fa";
+import { RiServerFill } from "react-icons/ri";
+import {
+  FaHashtag,
+  FaUserAlt,
+  FaUserAltSlash,
+  FaDiscord,
+} from "react-icons/fa";
+import { MdSpaceDashboard } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import { Pacman } from "src/assets/pacman/pacman";
 import {
@@ -10,10 +15,10 @@ import {
   IoIosArrowDropupCircle,
 } from "react-icons/io";
 import "../styles/Sidebar.css";
+import { logout } from "src/utils/api";
 
 export const Sidebar = ({
-  userId = "",
-  setUserId = (userId: string) => {},
+  user = null,
   sidebarState = true,
   changeSidebarState = () => {},
 }) => {
@@ -26,7 +31,7 @@ export const Sidebar = ({
     {
       name: "Dashboard",
       path: "/",
-      icon: RxDashboard,
+      icon: MdSpaceDashboard,
     },
     {
       name: "Server",
@@ -48,6 +53,7 @@ export const Sidebar = ({
     {
       name: "Logout",
       icon: FaUserAltSlash,
+      click: () => navigate(process.env.DISCORD_OAUTH_URL!),
       connected: true,
     },
     {
@@ -122,10 +128,10 @@ export const Sidebar = ({
             <div key={item.name} className="sidebar-nav-item">
               <div
                 onClick={() => {
-                  if (userId) navigate(item.path.toLowerCase());
+                  if (user) navigate(item.path.toLowerCase());
                 }}
                 className={
-                  userId
+                  user
                     ? `${
                         item.path === window.location.pathname
                           ? "sidebar-nav-link sidebar-nav-link-selected"
@@ -184,14 +190,14 @@ export const Sidebar = ({
               >
                 <div className="sidebar-footer-button-box-content">
                   <div className="sidebar-footer-button-box-content-icon">
-                    {userId ? <FaUserAlt /> : <RiErrorWarningFill />}
+                    {user ? <FaUserAlt size={25} /> : <FaDiscord size={40} />}
                   </div>
                   <div className="sidebar-footer-button-box-content-text">
                     <div className="sidebar-footer-button-box-content-text-main">
-                      <strong>{userId ? "Pexilo" : ""}</strong>
+                      <strong>{user ? "Pexilo" : ""}</strong>
                     </div>
                     <p className="sidebar-footer-button-box-content-text-sub">
-                      {userId ? "Role" : "Login with discord"}
+                      {user ? "Role" : "Login with discord"}
                     </p>
                   </div>
                 </div>
@@ -213,18 +219,21 @@ export const Sidebar = ({
               >
                 <div className="sidebar-footer-button-dropdown-content">
                   {navFooter.map((item) =>
-                    (userId && !item.connected) ||
-                    (!userId && item.connected) ? (
+                    (user && !item.connected) || (!user && item.connected) ? (
                       ""
                     ) : (
                       <div
                         key={item.name}
                         onClick={() => {
-                          navigate("/" + item.name.toLowerCase(), {
-                            replace: true,
-                          });
-                          item.name.toLowerCase().includes("logout") &&
-                            setUserId("");
+                          if (item.name.toLowerCase().includes("login")) {
+                            window.location.href =
+                              process.env.REACT_APP_DISCORD_LOGIN_URL!;
+                          } else if (
+                            item.name.toLowerCase().includes("logout")
+                          ) {
+                            logout();
+                            window.location.href = "/";
+                          }
                         }}
                         className="sidebar-footer-button-dropdown-content-item"
                       >

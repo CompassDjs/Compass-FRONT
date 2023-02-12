@@ -1,0 +1,73 @@
+.guild-button {
+  position: relative;
+  min-width: 100px;
+  min-height: 64px;
+  line-height: normal;
+}
+
+.guild-button-box {
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 35px;
+  height: 100%;
+  width: 64px;
+  right: calc(100% - 64px);
+  background-color: var(--secondary);
+  color: var(--secondary);
+  transition: all 0.15s ease 0s;
+}
+
+.guild-button-box-opened {
+  transition: all 0.15s ease 0s;
+  width: calc(100% + 64px);
+  background-color: var(--primary);
+  cursor: pointer;
+  padding-left: 12px;
+  color: var(--light-gray);
+}
+
+.guild-button-box-content {
+  align-items: center;
+  display: flex;
+  line-height: normal;
+}
+
+.guild-button-box-content-icon {
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--tertiary);
+  border-radius: 30px;
+  width: 64px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.guild-button-box-content-text {
+  line-height: normal;
+}
+
+.guild-button-box-content-text-main {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.guild-button-box-content-text {
+  line-height: normal;
+  font-weight: 400;
+}
+
+.guild-button-box-content-text-sub {
+  margin: 0px;
+  line-height: normal;
+  font-weight: 400;
+  padding: 0px;
+  font-size: 12px;
+  margin-top: 3px;
+  padding-left: 12px;
+}
