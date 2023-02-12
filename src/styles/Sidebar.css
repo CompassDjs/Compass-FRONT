@@ -1,30 +1,23 @@
 .sidebar-open {
-  /* width: var(--asideWidth); */
+  user-select: none;
   width: 14%;
   bottom: 0px;
-  /* left: var(--containBoxHPadding); */
   left: calc(50% - 50vw + 0.4%);
   position: fixed;
-  /* top: var(--containBoxHPadding); */
   top: calc(50% - 50vh + 0.4%);
   bottom: calc(50% - 50vh + 0.4%);
   transition: all 0.15s ease 0s;
-  /* z-index: var(--headerIndex); */
   min-width: 250px;
   z-index: 1;
 }
 
 .sidebar-closed {
-  /* width: var(--asideWidth); */
   width: 6%;
-  /* left: var(--containBoxHPadding); */
   left: calc(50% - 50vw + 0.4%);
   position: fixed;
-  /* top: var(--containBoxHPadding); */
   top: calc(50% - 50vh + 0.4%);
   bottom: calc(50% - 50vh + 0.4%);
   transition: all 0.15s ease 0s;
-  /* z-index: var(--headerIndex); */
   min-width: 65px;
   max-width: 65px;
   z-index: 1;
@@ -40,7 +33,6 @@
   border-radius: 20px;
   display: flex;
   /* height: var(--asideHeaderHeight); */
-  height: calc(30vh - 100px - 90px);
   /* padding: 0 var(--contentHpadding); */
   position: relative;
   min-height: 90px;
@@ -104,11 +96,9 @@
   justify-content: space-between;
   /* margin-top: var(--containBoxHPadding); */
   margin-top: 5px;
-  /* min-height: calc(100vh - var(--asideHeaderHeight) - 24px); */
-  min-height: calc(100vh - 100px - 5px);
-  overflow: hidden auto;
-  /* padding: var(--contentHpadding) var(--containBoxHPadding); */
+  min-height: calc(100vh - 90px - 1.5%);
   width: 100%;
+  overflow: hidden auto;
 }
 
 .sidebar-nav-items {
@@ -128,6 +118,10 @@
   line-height: normal;
 }
 
+.sidebar-nav-link:hover {
+  background-color: var(--primary);
+}
+
 .sidebar-nav-link {
   align-items: center;
   border-radius: 34px;
@@ -139,12 +133,11 @@
   color: var(--light-gray);
 }
 
-.sidebar-nav-link:hover {
+.sidebar-nav-link-selected {
   background-color: var(--primary);
-}
-
-.sidebar-nav-link::selection {
-  background-color: red;
+  border-radius: 34px;
+  color: var(--white);
+  cursor: default;
 }
 
 .sidebar-nav-link-off {
@@ -235,6 +228,10 @@
   width: 100%;
 }
 
+.sidebar-footer-promo-button:hover {
+  background-color: var(--green-hover);
+}
+
 .sidebar-footer-button {
   position: relative;
   width: 100%;
@@ -303,11 +300,11 @@
   visibility: hidden;
   position: absolute;
   right: 0;
-  bottom: calc(100% + 60px);
+  bottom: calc(100%);
   height: 100%;
   min-height: 40px;
   max-height: 50px;
-  width: 80%;
+  width: 100%;
   padding: 0px 0px 20px 0px;
 }
 
@@ -328,4 +325,12 @@
   justify-content: space-between;
   line-height: normal;
   padding: 0px 20px;
+}
+
+.sidebar-footer-button-dropdown-content:hover {
+  background-color: var(--tertiary);
+}
+
+.sidebar-footer-button-box-content-arrow:hover {
+  color: var(--gray);
 }
