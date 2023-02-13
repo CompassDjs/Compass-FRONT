@@ -48,7 +48,7 @@ export const GuildDropdown = ({
           onMouseLeave={() => {
             setTimeout(() => {
               setGuildListHover(false);
-            }, 1000);
+            }, 2000);
           }}
           onClick={() => {
             isGuildListHover ? setGuildListOpen(true) : setGuildListOpen(false);
@@ -61,7 +61,7 @@ export const GuildDropdown = ({
               <FaDiscord size={40} />
             )
           ) : (
-            <FaUserAlt size={40} />
+            <FaDiscord size={40} />
           )}
         </div>
       </div>
