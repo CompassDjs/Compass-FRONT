@@ -34,8 +34,8 @@ function Index() {
   };
 
   const smoothResize = {
-    width: sidebarState ? "calc(100% - 290px)" : "calc(100% - 100px)",
-    marginLeft: sidebarState ? "290px" : "100px",
+    width: sidebarState ? "calc(100% - 250px)" : "calc(100% - 100px)",
+    marginLeft: sidebarState ? "300px" : "100px",
     transition: "all 0.3s ease 0s",
   };
 
@@ -65,7 +65,7 @@ function Index() {
           </div>
           <div
             className={
-              "app-container " + (loading ? "fade-in" : "fade-in loaded")
+              "app-container " + (loading ? "fade-in" : "fade-in.loaded")
             }
           >
             <Sidebar

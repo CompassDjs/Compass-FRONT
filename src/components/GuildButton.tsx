@@ -29,7 +29,10 @@ export const GuildDropdown = ({
         >
           <div className="guild-button-box-content">
             <div className="guild-button-box-content-text">
-              <div className="guild-button-box-content-text-main">
+              <div
+                className="guild-button-box-content-text-main"
+                style={{ opacity: isGuildListHover ? 1 : 0 }}
+              >
                 {guildId
                   ? mockGuilds.find((g) => g.guildId == guildId)?.name
                   : "Discord"}

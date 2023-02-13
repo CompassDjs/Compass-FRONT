@@ -157,7 +157,7 @@ export const Sidebar = ({
           ))}
         </div>
         <div
-          className="sidebar-footer"
+          className={"sidebar-footer"}
           style={sidebarState ? { display: "block" } : { display: "none" }}
         >
           <div>
