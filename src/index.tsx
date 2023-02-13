@@ -33,6 +33,12 @@ function Index() {
     setGuildListOpen(isGuildListOpen);
   };
 
+  const smoothResize = {
+    width: sidebarState ? "calc(100% - 290px)" : "calc(100% - 100px)",
+    marginLeft: sidebarState ? "290px" : "100px",
+    transition: "all 0.3s ease 0s",
+  };
+
   const handleUser = (user: any) => {
     if (user) {
       return user;
@@ -67,11 +73,7 @@ function Index() {
               sidebarState={sidebarState}
               changeSidebarState={handleSidebarOpen}
             />
-            <div
-              style={{
-                marginLeft: sidebarState ? "290px" : "100px",
-              }}
-            >
+            <div style={smoothResize}>
               {user ? (
                 <App guildId={guildId} setGuildId={handleGuildIdChange} />
               ) : (

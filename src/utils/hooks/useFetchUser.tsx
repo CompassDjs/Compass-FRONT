@@ -11,7 +11,8 @@ export function useFetchUser() {
   useEffect(() => {
     setLoading(true);
     getAuthStatus()
-      .then((user) => {
+      .then((data: any) => {
+        const user: IUser = data.user;
         setUser(user);
       })
       .catch((err) => {

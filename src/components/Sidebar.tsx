@@ -14,11 +14,12 @@ import {
   IoIosArrowDropdownCircle,
   IoIosArrowDropupCircle,
 } from "react-icons/io";
-import "../styles/Sidebar.css";
 import { logout } from "src/utils/api";
+import { IUser } from "src/utils/interfaces/IUser";
+import "../styles/Sidebar.css";
 
 export const Sidebar = ({
-  user = null,
+  user = {} as IUser,
   sidebarState = true,
   changeSidebarState = () => {},
 }) => {
@@ -190,14 +191,21 @@ export const Sidebar = ({
               >
                 <div className="sidebar-footer-button-box-content">
                   <div className="sidebar-footer-button-box-content-icon">
-                    {user ? <FaUserAlt size={25} /> : <FaDiscord size={40} />}
+                    {user ? (
+                      <img
+                        src={user.avatarUrl}
+                        className="sidebar-footer-button-box-content-profile-img"
+                      ></img>
+                    ) : (
+                      <FaDiscord size={40} />
+                    )}
                   </div>
                   <div className="sidebar-footer-button-box-content-text">
                     <div className="sidebar-footer-button-box-content-text-main">
-                      <strong>{user ? "Pexilo" : ""}</strong>
+                      <strong>{user ? user.username : ""}</strong>
                     </div>
                     <p className="sidebar-footer-button-box-content-text-sub">
-                      {user ? "Role" : "Login with discord"}
+                      {user ? "Connected" : "Login with discord"}
                     </p>
                   </div>
                 </div>
