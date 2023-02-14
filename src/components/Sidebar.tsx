@@ -15,7 +15,7 @@ import {
   IoIosArrowDropupCircle,
 } from "react-icons/io";
 import { logout } from "src/utils/api";
-import { IUser } from "src/utils/interfaces/IUser";
+import IUser from "src/utils/interfaces/IUser";
 import "../styles/Sidebar.css";
 
 export const Sidebar = ({

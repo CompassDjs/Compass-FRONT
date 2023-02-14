@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { getAuthStatus } from "../api";
-import { IUser } from "../interfaces/IUser";
 import { Wait } from "../functions";
+import { AxiosError } from "axios";
+import IUser from "../interfaces/IUser";
 
 export function useFetchUser() {
   const [user, setUser] = useState<IUser>();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<AxiosError>();
 
   useEffect(() => {
-    setLoading(true);
     getAuthStatus()
       .then((data: any) => {
         const user: IUser = data.user;
