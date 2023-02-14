@@ -1,20 +1,17 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router";
 import { GuildContext } from "../utils/context/GuildContext";
-import { mockGuilds } from "../datas/guilds";
-import { FaDiscord, FaUserAlt } from "react-icons/fa";
+import { FaDiscord } from "react-icons/fa";
 import { MdChangeCircle } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import "../styles/GuildButton.css";
 
-export const GuildDropdown = ({
-  userId = "",
-  guildId = "",
+export const GuildButton = ({
   isGuildListOpen = false,
   setGuildListOpen = (isGuildListOpen: boolean) => {},
 }) => {
   const navigate = useNavigate();
   const [isGuildListHover, setGuildListHover] = useState(false);
-  const { updateGuildId } = useContext(GuildContext);
+  const { guild } = useContext(GuildContext);
   return (
     <div>
       <div className="guild-button">
@@ -24,20 +21,23 @@ export const GuildDropdown = ({
             (isGuildListHover ? "guild-button-box-opened" : "")
           }
           onClick={() => {
-            isGuildListHover ? setGuildListOpen(true) : setGuildListOpen(false);
+            isGuildListHover && navigate("/dashboard");
           }}
         >
           <div className="guild-button-box-content">
             <div className="guild-button-box-content-text">
-              <div className="guild-button-box-content-text-main">
-                {guildId
-                  ? mockGuilds.find((g) => g.guildId == guildId)?.name
-                  : "Discord"}
+              <div
+                className="guild-button-box-content-text-main"
+                style={{ opacity: isGuildListHover ? 1 : 0 }}
+              >
+                {guild ? "Server stats" : "Select a guild"}
               </div>
               <div className="guild-button-box-content-text-sub">
-                {guildId
-                  ? mockGuilds.find((g) => g.guildId == guildId)?.owner
-                  : "Discord"}
+                {guild
+                  ? guild.owner
+                    ? "👑 Owner"
+                    : "👥 Member"
+                  : "Select a guild"}
               </div>
             </div>
           </div>
@@ -48,17 +48,25 @@ export const GuildDropdown = ({
           onMouseLeave={() => {
             setTimeout(() => {
               setGuildListHover(false);
-            }, 2000);
+            }, 5000);
           }}
           onClick={() => {
             isGuildListHover ? setGuildListOpen(true) : setGuildListOpen(false);
           }}
         >
-          {guildId ? (
+          {guild ? (
             isGuildListHover ? (
               <MdChangeCircle size={40} />
+            ) : guild.icon ? (
+              <img
+                src={guild.icon}
+                alt="guild-icon"
+                className="guild-list-item-icon-img"
+              />
             ) : (
-              <FaDiscord size={40} />
+              <div className="guild-list-item-icon-img guild-list-item-icon-letter">
+                {guild.name![0].toUpperCase()}
+              </div>
             )
           ) : (
             <FaDiscord size={40} />

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { IUser } from "./interfaces/IUser";
+import IUser from "./interfaces/IUser";
 
 const CONFIG: AxiosRequestConfig = {
   withCredentials: true,
@@ -26,6 +26,10 @@ export const getAuthStatus = () =>
 
 export const logout = () =>
   axios.get(`/auth/logout`, CONFIG).then((res) => {
-    console.log(res);
+    return res.data;
+  });
+
+export const getMutualGuilds = () =>
+  axios.get(`/discord/user/mutual-guilds`, CONFIG).then((res) => {
     return res.data;
   });

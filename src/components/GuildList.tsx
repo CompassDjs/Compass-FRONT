@@ -1,18 +1,26 @@
-import { useContext, useEffect, useState } from "react";
-import { FaDiscord } from "react-icons/fa";
-import { mockGuilds } from "src/datas/guilds";
+import { useContext } from "react";
 import { GuildContext } from "src/utils/context/GuildContext";
+import { FormatDate } from "src/utils/functions";
+import { useNavigate } from "react-router-dom";
+import IGuild from "src/utils/interfaces/IGuild";
+import IUser from "src/utils/interfaces/IUser";
 import "../styles/GuildList.css";
 
 export const GuildList = ({
-  userId = "",
-  guildId = "",
-  setGuildId = (guildId: string) => {},
+  user = {} as IUser,
+  guilds = [] as IGuild[],
+  loading = false,
   isGuildListOpen = false,
   setGuildListOpen = (isGuildListOpen: boolean) => {},
 }) => {
-  const [isGuildListHover, setGuildListHover] = useState(false);
-  const { updateGuildId } = useContext(GuildContext);
+  const navigate = useNavigate();
+  const { updateGuild } = useContext(GuildContext);
+
+  const handleClickGuild = (guild: IGuild) => {
+    console.log("Guild clicked: ", guild);
+    updateGuild(guild);
+    navigate("/dashboard");
+  };
 
   return isGuildListOpen ? (
     <div
@@ -20,20 +28,32 @@ export const GuildList = ({
       onClick={() => setGuildListOpen(false)}
     >
       <div className="guild-list">
-        {mockGuilds.map((guild) => (
+        {guilds.map((guild) => (
           <div
             className="guild-list-item"
+            key={guild.id}
             onClick={() => {
-              updateGuildId(guild.guildId);
-              setGuildId(guild.guildId);
+              handleClickGuild(guild);
             }}
           >
             <div className="guild-list-item-icon">
-              <FaDiscord size={40} />
+              {guild.icon ? (
+                <img
+                  src={guild.icon}
+                  alt="guild-icon"
+                  className="guild-list-item-icon-img"
+                />
+              ) : (
+                <div className="guild-list-item-icon-img guild-list-item-icon-letter">
+                  {guild.name![0].toUpperCase()}
+                </div>
+              )}
             </div>
             <div className="guild-list-item-text">
               <div className="guild-list-item-text-main">{guild.name}</div>
-              <div className="guild-list-item-text-sub">{guild.owner}</div>
+              <div className="guild-list-item-text-sub">
+                Supported since {FormatDate(new Date(guild.createdAt))}
+              </div>
             </div>
           </div>
         ))}
