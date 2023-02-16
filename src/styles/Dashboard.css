@@ -1,0 +1,13 @@
+.app-topright {
+  position: absolute;
+  top: 1%;
+  right: 0;
+  margin: 1%;
+}
+
+.app-popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1%;
+}

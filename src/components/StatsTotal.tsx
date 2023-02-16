@@ -1,0 +1,89 @@
+import { FaUserAlt } from "react-icons/fa";
+import { Card } from "./Card";
+import { GuildStatsContext } from "src/utils/context/GuildStatsContext";
+import { useContext } from "react";
+import { MdMessage } from "react-icons/md";
+import { HiSpeakerphone } from "react-icons/hi";
+import { AgeDate, MsToMinutes } from "src/utils/functions";
+import { IoLogoGameControllerA } from "react-icons/io";
+import { GuildContext } from "src/utils/context/GuildContext";
+import { useNavigate } from "react-router-dom";
+import { TbOld } from "react-icons/tb";
+import IUser from "src/utils/interfaces/IUser";
+import "../styles/StatsTotal.css";
+
+export const StatsTotal = ({ user = {} as IUser }) => {
+  const navigate = useNavigate();
+  const { gStats } = useContext(GuildStatsContext);
+  const { guild } = useContext(GuildContext);
+  console.log("🚀 ~ guild", guild);
+  const userAvatar = user.avatarUrl ? user.avatarUrl : FaUserAlt;
+  if (!guild) {
+    navigate("/");
+    return <></>;
+  }
+  return (
+    <div className="total-stats-containter">
+      {gStats && (
+        <>
+          <Card
+            front={{
+              title: "Messages",
+              value: gStats.totals.totalMsg.toString()!,
+              icon: MdMessage,
+              color: "#4877E3",
+            }}
+            back={{
+              title: "You",
+              value: "123",
+              icon: userAvatar,
+              color: "#42464d",
+            }}
+          />
+          <Card
+            front={{
+              title: "Minutes Spoken",
+              value: MsToMinutes(gStats.totals.totalVoice).toString(),
+              icon: HiSpeakerphone,
+              color: "#1d4bb8",
+            }}
+            back={{
+              title: "You",
+              value: "123",
+              icon: userAvatar,
+              color: "#42464d",
+            }}
+          />
+          <Card
+            front={{
+              title: "Minutes Played",
+              value: MsToMinutes(gStats.totals.totalGames).toString(),
+              icon: IoLogoGameControllerA,
+              color: "#4877E3",
+            }}
+            back={{
+              title: "You",
+              value: "123",
+              icon: userAvatar,
+              color: "#42464d",
+            }}
+          />
+          <Card
+            front={{
+              title: "",
+              value: AgeDate(new Date(guild.guildCreatedAt)).toString(),
+              icon: TbOld,
+              color: "#4877E3",
+            }}
+            back={{
+              title: "Supported since",
+              value: AgeDate(new Date(guild.createdAt)).toString(),
+              icon: "https://i.imgur.com/gaBPSWO.png",
+              color: "#42464d",
+            }}
+          />
+        </>
+      )}
+    </div>
+  );
+};

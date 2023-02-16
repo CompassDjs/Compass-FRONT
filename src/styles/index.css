@@ -3,6 +3,7 @@ body {
   background-color: var(--secondary);
   color: var(--white);
   font-family: "Inter";
+  overflow-x: hidden;
 }
 
 html,
@@ -47,7 +48,7 @@ html,
   display: flex;
   flex-direction: row;
   transition: all 0.3s ease 0s;
-  width: 100%;
+  padding: 1%;
 }
 
 .spinner-container {
@@ -55,20 +56,6 @@ html,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.app-topright {
-  position: absolute;
-  top: 1%;
-  right: 0;
-  margin: 1%;
-}
-
-.app-popup {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 1%;
 }
 
 .login-container {
