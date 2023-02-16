@@ -17,7 +17,6 @@ export const Dashboard = ({ user = {} as IUser }) => {
       theme: "dark",
       toastId: "fetchUserError",
     });
-    <Navigate replace to="/" />;
   }
 
   return (
