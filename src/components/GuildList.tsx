@@ -17,9 +17,8 @@ export const GuildList = ({
   const { updateGuild } = useContext(GuildContext);
 
   const handleClickGuild = (guild: IGuild) => {
-    console.log("Guild clicked: ", guild);
     updateGuild(guild);
-    navigate("/dashboard");
+    navigate(`/dashboard/${guild.id}`);
   };
 
   return isGuildListOpen ? (

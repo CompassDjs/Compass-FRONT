@@ -1,3 +1,5 @@
+import prettyMilliseconds from "pretty-ms";
+
 export function Wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -8,4 +10,16 @@ export function FormatDate(date: Date) {
     month: "long",
     day: "numeric",
   });
+}
+
+export function AgeDate(date: Date) {
+  return prettyMilliseconds(Date.now() - date.getTime(), {
+    compact: true,
+    verbose: true,
+  });
+}
+
+export function MsToMinutes(ms: number) {
+  console.log(ms);
+  return Math.floor(ms / 60000);
 }

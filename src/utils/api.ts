@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import IGuildStats from "src/utils/interfaces/IGuildStats";
 import IUser from "./interfaces/IUser";
 
 const CONFIG: AxiosRequestConfig = {
@@ -31,5 +32,10 @@ export const logout = () =>
 
 export const getMutualGuilds = () =>
   axios.get(`/discord/user/mutual-guilds`, CONFIG).then((res) => {
+    return res.data;
+  });
+
+export const getGuildStats = (guildId: string) =>
+  axios.get<IGuildStats>(`/stats/guild/${guildId}`, CONFIG).then((res) => {
     return res.data;
   });

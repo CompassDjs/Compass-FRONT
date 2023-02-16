@@ -31,7 +31,7 @@ export const Sidebar = ({
   const navBar = [
     {
       name: "Dashboard",
-      path: "/",
+      path: "/dashboard",
       icon: MdSpaceDashboard,
     },
     {

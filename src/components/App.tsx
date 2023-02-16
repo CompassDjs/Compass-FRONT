@@ -1,7 +1,7 @@
 import { Home } from "./Home";
 import { Dashboard } from "./Dashboard";
 import { Route, Routes } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { GuildButton } from "./GuildButton";
 import { GuildList } from "./GuildList";
 import { useFetchGuilds } from "src/utils/hooks/useFetchGuilds";
@@ -21,16 +21,12 @@ function App({ user = {} as IUser }) {
     setGuildListOpen(isGuildListOpen);
   };
 
-  const handleUpdateGuild = (guild: IGuild) => {
-    updateGuild(guild);
-  };
-
   return (
     <div>
       <GuildContext.Provider value={{ guild, updateGuild }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<Dashboard user={user} />} />
         </Routes>
         <div
           className={"app-topright " + (loading ? "fade-in" : "fade-in loaded")}

@@ -21,15 +21,15 @@ export const GuildButton = ({
             (isGuildListHover ? "guild-button-box-opened" : "")
           }
           onClick={() => {
-            isGuildListHover && navigate("/dashboard");
+            guild ? navigate("/dashboard") : setGuildListOpen(true);
           }}
         >
           <div className="guild-button-box-content">
-            <div className="guild-button-box-content-text">
-              <div
-                className="guild-button-box-content-text-main"
-                style={{ opacity: isGuildListHover ? 1 : 0 }}
-              >
+            <div
+              className="guild-button-box-content-text"
+              style={{ opacity: isGuildListHover ? 1 : 0 }}
+            >
+              <div className="guild-button-box-content-text-main">
                 {guild ? "Server stats" : "Select a guild"}
               </div>
               <div className="guild-button-box-content-text-sub">
