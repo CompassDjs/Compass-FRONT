@@ -5,4 +5,5 @@ export interface ICard {
   title: string;
   value: string;
   color: string;
+  size?: string;
 }

@@ -14,7 +14,12 @@ export const Card = ({ front = {} as ICard, back = {} as ICard }) => {
               <front.icon />
             </div>
             <div className="parallax-card__front-text">
-              <span className="parallax-card__front-value">{front.value}</span>
+              <span
+                className="parallax-card__front-value"
+                style={{ fontSize: front.size ? front.size : "3rem" }}
+              >
+                {front.value}
+              </span>
               <div style={{ height: "10px" }}></div>
               <span className="parallax-card__front-title">{front.title}</span>
             </div>
@@ -44,7 +49,12 @@ export const Card = ({ front = {} as ICard, back = {} as ICard }) => {
               )}
             </div>
             <div className="parallax-card__front-text">
-              <span className="parallax-card__back-value">{back.value}</span>
+              <span
+                className="parallax-card__back-value"
+                style={{ fontSize: back.size ? back.size : "3rem" }}
+              >
+                {back.value}
+              </span>
               <div style={{ height: "10px" }}></div>
               <span className="parallax-card__back-title">{back.title}</span>
             </div>

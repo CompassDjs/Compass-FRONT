@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { GuildContext } from "src/utils/context/GuildContext";
+import { GuildContext } from "src/utils/context/GuildCtx";
 import { FormatDate } from "src/utils/functions";
 import { useNavigate } from "react-router-dom";
 import IGuild from "src/utils/interfaces/IGuild";

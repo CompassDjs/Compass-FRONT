@@ -39,3 +39,8 @@ export const getGuildStats = (guildId: string) =>
   axios.get<IGuildStats>(`/stats/guild/${guildId}`, CONFIG).then((res) => {
     return res.data;
   });
+
+export const getGuildStatsByUser = (guildId: string) =>
+  axios.get<IGuildStats>(`/stats/user/${guildId}`, CONFIG).then((res) => {
+    return res.data;
+  });

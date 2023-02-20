@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Wait } from "../functions";
 import { getGuildStats } from "../api";
+import { AxiosError } from "axios";
 import IGuildStats from "../interfaces/IGuildStats";
 
 export function useFetchGuildStats(guildId: string) {
   const [gStats, setGuildStats] = useState<IGuildStats>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error>();
+  const [guildStatsErr, setGuildStatsErr] = useState<AxiosError>();
 
   const Fetch = () => {
     setLoading(true);
@@ -15,7 +16,7 @@ export function useFetchGuildStats(guildId: string) {
         setGuildStats(gStats);
       })
       .catch((err) => {
-        setError(err);
+        setGuildStatsErr(err);
       })
       .finally(() => {
         Wait(1000).then(() => {
@@ -28,5 +29,5 @@ export function useFetchGuildStats(guildId: string) {
     Fetch();
   }, [guildId]);
 
-  return { gStats, error, loading };
+  return { gStats, guildStatsErr, loading };
 }

@@ -1,30 +1,34 @@
 import { FaUserAlt } from "react-icons/fa";
 import { Card } from "./Card";
-import { GuildStatsContext } from "src/utils/context/GuildStatsContext";
+import { GuildStatsContext } from "src/utils/context/GuildStatsCtx";
 import { useContext } from "react";
 import { MdMessage } from "react-icons/md";
 import { HiSpeakerphone } from "react-icons/hi";
 import { AgeDate, MsToMinutes } from "src/utils/functions";
 import { IoLogoGameControllerA } from "react-icons/io";
-import { GuildContext } from "src/utils/context/GuildContext";
+import { GuildContext } from "src/utils/context/GuildCtx";
 import { useNavigate } from "react-router-dom";
 import { TbOld } from "react-icons/tb";
 import IUser from "src/utils/interfaces/IUser";
 import "../styles/StatsTotal.css";
+import { GuildUserStatsContext } from "src/utils/context/GuildUserStatsCtx";
 
 export const StatsTotal = ({ user = {} as IUser }) => {
   const navigate = useNavigate();
-  const { gStats } = useContext(GuildStatsContext);
+
   const { guild } = useContext(GuildContext);
-  console.log("🚀 ~ guild", guild);
-  const userAvatar = user.avatarUrl ? user.avatarUrl : FaUserAlt;
+  const { gStats } = useContext(GuildStatsContext);
+  const { uStats } = useContext(GuildUserStatsContext);
+
   if (!guild) {
     navigate("/");
     return <></>;
   }
+
+  const userAvatar = user.avatarUrl ? user.avatarUrl : FaUserAlt;
   return (
     <div className="total-stats-containter">
-      {gStats && (
+      {gStats && uStats && (
         <>
           <Card
             front={{
@@ -35,7 +39,7 @@ export const StatsTotal = ({ user = {} as IUser }) => {
             }}
             back={{
               title: "You",
-              value: "123",
+              value: uStats.totals.totalMsg.toString()!,
               icon: userAvatar,
               color: "#42464d",
             }}
@@ -49,7 +53,7 @@ export const StatsTotal = ({ user = {} as IUser }) => {
             }}
             back={{
               title: "You",
-              value: "123",
+              value: MsToMinutes(uStats.totals.totalVoice).toString(),
               icon: userAvatar,
               color: "#42464d",
             }}
@@ -63,20 +67,21 @@ export const StatsTotal = ({ user = {} as IUser }) => {
             }}
             back={{
               title: "You",
-              value: "123",
+              value: MsToMinutes(uStats.totals.totalGames).toString(),
               icon: userAvatar,
               color: "#42464d",
             }}
           />
           <Card
             front={{
-              title: "",
+              title: "Server Age",
               value: AgeDate(new Date(guild.guildCreatedAt)).toString(),
               icon: TbOld,
-              color: "#4877E3",
+              color: "#1d4bb8",
+              size: "1.5rem",
             }}
             back={{
-              title: "Supported since",
+              title: "Compass Support",
               value: AgeDate(new Date(guild.createdAt)).toString(),
               icon: "https://i.imgur.com/gaBPSWO.png",
               color: "#42464d",

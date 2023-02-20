@@ -20,6 +20,5 @@ export function AgeDate(date: Date) {
 }
 
 export function MsToMinutes(ms: number) {
-  console.log(ms);
   return Math.floor(ms / 60000);
 }
