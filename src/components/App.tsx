@@ -5,7 +5,8 @@ import { useState } from "react";
 import { GuildButton } from "./GuildButton";
 import { GuildList } from "./GuildList";
 import { useFetchGuilds } from "src/utils/hooks/useFetchGuilds";
-import { GuildContext } from "src/utils/context/GuildContext";
+import { GuildContext } from "src/utils/context/GuildCtx";
+import { ToastContainer, toast } from "react-toastify";
 import IUser from "src/utils/interfaces/IUser";
 import IGuild from "src/utils/interfaces/IGuild";
 import "../styles/App.css";
@@ -17,12 +18,20 @@ function App({ user = {} as IUser }) {
   const updateGuild = (guild: IGuild) => setGuild(guild);
   const { guilds, error, loading } = useFetchGuilds();
 
+  if (error) {
+    toast.error(error.message, {
+      theme: "dark",
+      toastId: "fetchGuildsError",
+    });
+  }
+
   const handleGuildListOpen = (isGuildListOpen: boolean) => {
     setGuildListOpen(isGuildListOpen);
   };
 
   return (
     <div>
+      <ToastContainer />
       <GuildContext.Provider value={{ guild, updateGuild }}>
         <Routes>
           <Route path="/" element={<Home />} />

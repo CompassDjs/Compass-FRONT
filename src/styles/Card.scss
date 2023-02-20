@@ -1,19 +1,16 @@
-.wrapper {
-  display: flex;
-}
-
 .parallax-card__content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
   color: var(--white);
-  font-size: 1.5rem;
   height: 100%;
+  max-width: 400px;
+  width: 100%;
 }
 
 .parallax-card__front-text {
-  margin-left: 40%;
+  margin-left: calc(100px + 1rem);
 }
 
 .parallax-card__icon-avatar {
@@ -53,6 +50,36 @@
   }
 }
 
+.parallax-card__back {
+  transform: rotateY(180deg);
+  transform-style: preserve-3d;
+  background-size: cover;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  width: 100%;
+  height: auto;
+  border-radius: 25px;
+  backface-visibility: hidden;
+  color: #fff;
+  font-size: 1.5rem;
+  &-title &-value {
+    display: block;
+    text-align: start;
+  }
+  &-title {
+    font-size: 1.2rem;
+  }
+  &-value {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+  }
+}
+
 .parallax-card__icon {
   display: flex;
   align-items: center;
@@ -68,6 +95,10 @@
   font-size: 3rem;
   margin: 0 auto;
   margin-bottom: 1rem;
+}
+
+.parallax-card__front-title {
+  font-size: 1.3rem;
 }
 
 .parallax-card {

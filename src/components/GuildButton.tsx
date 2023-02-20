@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { GuildContext } from "../utils/context/GuildContext";
+import { GuildContext } from "../utils/context/GuildCtx";
 import { FaDiscord } from "react-icons/fa";
 import { MdChangeCircle } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
